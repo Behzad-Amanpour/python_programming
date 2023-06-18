@@ -1,6 +1,6 @@
 # Pandas DataFrame Handling
 
-In **code.py** you will see:
+In **pandas_code.py** you will see:
 
   - How to read an Excel file and export its values using Pandas library in Python
   
