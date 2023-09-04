@@ -58,20 +58,22 @@ df[ "Gender" ] = df[ "Gender" ].interpolate( method ='pad', limit=2)
 df = df.sort_values(['Smoker'])     # We sort the rows of "df" based on its column "Smoker" which has high correlation with "Blood_pressure"
 df[ "Blood_pressure" ] = df[ "Blood_pressure" ].interpolate( method ='linear', limit=2)
 
-# Multiple Samples Average 
+# Interpolation with the average of previous and next rows 
 import numpy as np
-def average3( array, ix):
-    return round( array[ix-3]+ array[ix-2]+ array[ix-1]+ array[ix+1]+ array[ix+2]+ array[ix+3] ) / 6 )
-           # you might not need the round() function
-n = 3
+
+n = 3   # the number of previous and next rows
 def average_n( array, ix):
     return round( (np.sum(array[ix-n : ix+n+1]) - array[ix]) / (n*2) )
            # you might not need the round() function
+
+#def average3( array, ix):
+#    return round( array[ix-3]+ array[ix-2]+ array[ix-1]+ array[ix+1]+ array[ix+2]+ array[ix+3] ) / 6 )
+#            you might not need the round() function
 
 values = df['Blood_pressure'].values
 values = np.nan_to_num(values, nan=999)
 for i in range( np.shape( values )[0] ): 
     if values[i] == 999:  # and i > 2
-        values[i] = average3( values, i )   # average_n( values, i )
+        values[i] = average_n( values, i )   # average3( values, i )
         print(i)
 df['Blood_pressure'] = values
