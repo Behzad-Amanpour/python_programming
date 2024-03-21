@@ -37,9 +37,10 @@ df2["Smoker"] = df["Smoker"].fillna(0)
 
 # Dropping NaN Values ---------------------------------------------------------
 df2 = df.dropna()            # drops all rows with one or more missing values
-df2 = df.dropna(axis = 1)    # drops all columns with one or more missing values
 df2 = df.dropna(how = 'all') # drops rows with all values missed
-
+df2 = df.dropna(axis = 1)    # drops all columns with one or more missing values
+df2 = df.dropna( thresh = 7 )
+df2 = df.dropna( thresh = 99, axis = 1 )
 
 # Missing Values Interpolation ----------------------- Behzad Amanpour -------
 """
